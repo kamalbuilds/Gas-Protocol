@@ -8,7 +8,10 @@ const nextConfig = {
     },
     images: {
         domains: ["avatars.githubusercontent.com", "cdn.discordapp.com", "lh3.googleusercontent.com", "www.shutterstock.com"],
-    }
+    },
+    experimental: {
+        serverComponentsExternalPackages: ["@sismo-core/sismo-connect-server"],
+      }
 }
 
 module.exports = nextConfig

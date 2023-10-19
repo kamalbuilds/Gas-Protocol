@@ -12,7 +12,6 @@ import {
     appId: "0xa536e3d9b19c6b6e662af29907ce279f",
     vault: {
       // For development purposes insert the Data Sources that you want to impersonate
-      // Never use this in production
       impersonate: [
         // EVM Data Sources
         "dhadrien.sismo.eth",
@@ -21,11 +20,11 @@ import {
         "0x82fbed074f62386ed43bb816f748e8817bf46ff7",
         "0xc281bd4db5bf94f02a8525dca954db3895685700",
         // Github Data Source
-        "github:dhadrien",
+        "github:kamalbuilds",
         // Twitter Data Source
-        "twitter:dhadrien_",
+        "twitter:0xkamal7",
         // Telegram Data Source
-        "telegram:dhadrien",
+        "telegram:kamalthedev",
       ],
     },
     // displayRawResponse: true, // this enables you to get access directly to the
