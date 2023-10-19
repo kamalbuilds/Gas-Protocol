@@ -81,7 +81,7 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
         (async () => {
             setLoadingWeb3Auth(true);
             const options: Web3AuthOptions = {
-                clientId: 'BDB6MmpZuqwQ0fCs4jBEu0dA9_6gbXCj1CqDgWNDN-s9ByAKvCY2dEgQDdXGi8XlfU-VBzKuMwME_5fp-2WFwJ0',
+                clientId: 'BPUhgseITzqBuHNUJSfGTvTeD5UqjG76CaO2Ve9WfUmTtQHkiI3QXzIYkPnuApUYoRt5g0y28FiZkBSeT0TmVdM',
                 // clientId: 'DyZp_HnJ5pV5s3iCNCxiycSL1M8cM_Av7WzdYIUiobM_',
 
                 chainConfig: {

@@ -22,7 +22,7 @@ export default function Sismo() {
   const [pageState, setPageState] = useState<string>("init");
   const [error, setError] = useState<string>("");
   const [isprotocol, setIsprotocol] = useState<boolean>(false);
-  
+
   return (
     <>
       <main className="main">
@@ -44,6 +44,7 @@ export default function Sismo() {
               onResponse={async (response: SismoConnectResponse) => {
                 setSismoConnectResponse(response);
                 setPageState("verifying");
+                console.log("sending to the backend");
                 const verifiedResult = await fetch("/api/verify", {
                   method: "POST",
                   body: JSON.stringify(response),
