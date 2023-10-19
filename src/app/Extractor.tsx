@@ -16,7 +16,7 @@ const Extractor = () => {
 
     const [functionInput, setFunctionInput] = useState(null);
 
-    console.log("Functions", functions);
+    const [inputValues, setInputValues] = useState({});
 
     const handleSelect = (e) => {
         setFunctionSelected(e.target.value);
@@ -76,15 +76,21 @@ const Extractor = () => {
 
 
 
-    const handleFunctionInput = (e) => {
-        console.log("Input data", e.target.value);
+
+    // Update the handleFunctionInput function to store input values
+    const handleFunctionInput = (e : any, name : any) => {
+        const updatedInputValues = { ...inputValues };
+        //@ts-ignore
+        updatedInputValues[name] = e.target.value;
+        setInputValues(updatedInputValues);
+        console.log("Input Values", inputValues, updatedInputValues)
     }
 
     console.log("Function input", functionInput);
 
     return (
         <div className='w-9/12'>
-            hey
+            GM
 
             <div className='flex flex-row'>
                 <FormControl className='flex-1'>
@@ -122,7 +128,7 @@ const Extractor = () => {
 
                 </FormControl>
 
-                <div className='flex-1'>
+                <div className='flex-1 ml-16'>
                     <div className='flex flex-col '>
                         <div className='text-center'>Your transaction Batch</div>
                         <div>
@@ -139,9 +145,10 @@ const Extractor = () => {
 
                                 {functionInput && (
                                     functionInput?.map((item, index) => {
-                                        console.log("Item", item);
                                         return (
-                                            <div key={index}>{item?.name}</div>
+                                            <div key={index}>
+                                                {item?.name}: {inputValues[item?.name]}
+                                            </div>
                                         )
                                     })
                                 )}

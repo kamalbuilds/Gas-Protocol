@@ -32,7 +32,7 @@ const FunctionForm = ({
                     functionInput.map((item, index) => (
                         <div key={index}>
                             <FormLabel>{item?.name} ({item?.type})</FormLabel>
-                            <Input placeholder={`Enter ${item?.name}`} onChange={handleFunctionInput} />
+                            <Input placeholder={`Enter ${item?.name}`} onChange={(e) => handleFunctionInput(e, item.name)}  />
                         </div>
                     ))
                 )}
