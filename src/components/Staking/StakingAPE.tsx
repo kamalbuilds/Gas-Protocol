@@ -7,13 +7,14 @@ import React, { useCallback, useContext } from 'react';
 const pollingTime = 4_000
 
 const StakingAPE = () => {
-    const { web3Provider, approveAPEStaking, gelatoTaskId } = useContext(AccountAbstractionContext)
+    const { web3Provider, approveAPEStaking, mintAPECoin, gelatoTaskId } = useContext(AccountAbstractionContext)
     console.log("Web 3 provider", web3Provider);
 
     return (
         <div>
             hello APES
             <button onClick={approveAPEStaking} className='border-2 m-2 p-4'>Approve APE</button>
+            <button onClick={mintAPECoin} className='border-2 m-2 p-4'>Mint APE Coin</button>
 
             {gelatoTaskId && <GelatoTask />}
         </div>

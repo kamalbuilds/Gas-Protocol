@@ -41,6 +41,7 @@ type accountAbstractionContextValue = {
     // startMoneriumFlow: () => Promise<void>
     // closeMoneriumFlow: () => void
     approveAPEStaking: () => void
+    mintAPECoin: () => void
 }
 
 const initialState = {
@@ -345,84 +346,6 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
 
 
 
-                // const relayPack = new GelatoRelayPack(apiKey)
-                // const safeAccountAbstraction = new AccountAbstraction(signer)
-
-                // await safeAccountAbstraction.init({ relayPack })
-
-                // // we use a dump safe transfer as a demo transaction
-                // const dumpSafeTransafer: MetaTransactionData[] = [
-                //     {
-                //         to: apeCoin,
-                //         data: minTx,
-                //         value: mintAmount
-                //     }
-                // ]
-
-                // const options: MetaTransactionOptions = {
-                //     isSponsored: false,
-                //     gasLimit: '600000', // in this alfa version we need to manually set the gas limit
-                //     gasToken: ethers.constants.AddressZero // native token
-                // }
-
-
-                // const gelatoTaskId = await safeAccountAbstraction.relayTransaction(dumpSafeTransafer, options)
-
-                // console.log("Gelato Task Id", gelatoTaskId);
-
-
-
-
-
-
-                // await signer.sendTransaction(safeTransaction)
-                // await signer.signTransaction(safeTransaction)
-
-                // const apecoininstance = new ethers.Contract(apeCoin, ABI, web3Provider);
-                // const amount = utils.parseUnits('1', 'ether').toString();
-                // const populatedTransferTxn = await apecoininstance.populateTransaction.approve(
-                //     apeStakingContractAddress,
-                //     amount
-                // );
-                // const calldata = populatedTransferTxn.data;
-                // console.log("CallData", calldata);
-
-                // const request: SponsoredCallRequest = {
-                //     chainId: (await web3Provider.getNetwork()).chainId,
-                //     target: apeCoin,
-                //     data: calldata,
-                // };
-
-                // const relayResponse = await relay.sponsoredCall(request, apiKey);
-                // setGelatoTaskId(relayResponse)
-                // console.log("relay response", relayResponse)
-
-                // // we use a dump safe transfer as a demo transaction
-                // const dumpSafeTransafer: MetaTransactionData[] = [
-                //     {
-                //         to: apeStakingContractAddress,
-                //         data: calldata,
-                //         value: utils.parseUnits('1', 'ether').toString(),
-                //         operation: 0 // OperationType.Call,
-                //     }
-                // ]
-
-                // const options: MetaTransactionOptions = {
-                //     isSponsored: true,
-                //     gasLimit: '600000', // in this alfa version we need to manually set the gas limit
-                //     gasToken: ethers.constants.AddressZero // native token
-                // }
-
-                // // const gelatoTaskId = await safeAccountAbstraction.relayTransaction(dumpSafeTransafer, options)
-                // const gelatoTaskId = await safeAccountAbstraction.relayTransaction(dumpSafeTransafer, options)
-                // setGelatoTaskId(gelatoTaskId)
-
-
-
-
-
-                // setIsRelayerLoading(false)
-                // setGelatoTaskId(gelatoTaskId)
             } catch (error) {
                 console.log("Error", error);
             }
@@ -430,6 +353,91 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
         }
     }
 
+
+    const mintAPECoin = async () => {
+
+        if (web3Provider) {
+
+            try {
+                const owner = ownerAddress;
+                const safeAddress = safes[0];
+                console.log("Owner and Safe Address ", owner, safeAddress, safes);
+
+
+                const signer = web3Provider.getSigner()
+                let provider;
+
+                if (web3AuthModalPack) {
+                    provider = web3AuthModalPack.getProvider() as ethers.providers.ExternalProvider
+                }
+
+                console.log("Signer and Provider ", signer, provider);
+
+
+                const ethAdapter = new EthersAdapter({
+                    ethers,
+                    signerOrProvider: signer || provider
+                })
+
+
+                const safeSDK = await Safe.create({
+                    ethAdapter,
+                    safeAddress
+                });
+
+
+                const apeCoin = '0x328507DC29C95c170B56a1b3A758eB7a9E73455c';
+
+                const contract = new ethers.Contract(
+                    apeCoin,
+                    ABI,
+                    signer,//or provider check once
+                )
+
+                const minTx = await contract.populateTransaction.mint(safeAddress, '1000000000000000000');//1 ERC20
+
+                console.log("MintTx data", minTx);
+                const safeTransactionData: SafeTransactionDataPartial[] = [
+                    {
+                        to: contract.address,//apecoine address
+                        value: '0',
+                        data: contract.interface.encodeFunctionData('mint', [
+                            safeAddress,
+                            '1000000000000000000' // 1.0 ERC20
+                        ]),
+                    }
+                ]
+
+                const sendTx = await safeSDK.createTransaction({ safeTransactionData });
+
+                console.log("Send Tx Data>> ", sendTx);
+
+                const signTxn = await safeSDK.signTransaction(sendTx);
+
+                console.log("Sign Tx Data << ", signTxn);
+
+                const txResponse2 = await safeSDK.executeTransaction(signTxn);
+
+                console.log("Response Tx Data << ", txResponse2);
+
+                await txResponse2?.transactionResponse.wait();
+
+                const safeFinalERC20Balance = await contract.balanceOf(safeAddress)
+                const accountFinalERC20Balance = await contract.balanceOf(ownerAddress)
+
+                console.log("Final Balance of safe and eoa", safeFinalERC20Balance, accountFinalERC20Balance);
+
+
+
+            } catch (error) {
+                console.log("Error", error)
+            }
+
+
+        }
+
+
+    }
 
 
 
@@ -450,7 +458,8 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
             loginWeb3Auth,
             logoutWeb3Auth,
             relayTransaction,
-            approveAPEStaking
+            approveAPEStaking,
+            mintAPECoin
         }}>
             {children}
         </AccountAbstractionContext.Provider>

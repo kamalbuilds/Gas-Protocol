@@ -14,6 +14,7 @@ const APEStaking = () => {
 
             <button onClick={getProvider}>Get Provider</button>
 
+
             {isAuthenticated && <StakingAPE />}
         </div>
     );
