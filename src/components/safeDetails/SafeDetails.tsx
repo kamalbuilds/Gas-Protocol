@@ -1,4 +1,4 @@
-import getSafeInfo from '@/api/getSafeInfo';
+import getSafeInfo from '@/app/api/getSafeInfo';
 import useApi from '@/hooks/useApi';
 import usePolling from '@/hooks/usePolling';
 import isContractAddress from '@/utils/isContractAddress';

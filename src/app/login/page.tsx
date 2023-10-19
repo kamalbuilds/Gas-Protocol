@@ -8,7 +8,7 @@ import SafeDetails from '@/components/safeDetails/SafeDetails';
 import DeploySafe from '@/components/safeDetails/DeploySafe';
 import Link from 'next/link';
 import { BsArrowRightCircle } from "react-icons/bs";
-import getSafeInfo from '@/api/getSafeInfo';
+import getSafeInfo from '@/app/api/getSafeInfo';
 import useApi from '@/hooks/useApi';
 import usePolling from '@/hooks/usePolling';
 import isContractAddress from '@/utils/isContractAddress';
