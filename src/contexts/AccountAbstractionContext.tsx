@@ -9,9 +9,9 @@ import { ethers, providers, utils } from "ethers";
 import { Chain, initialChain } from "@/constants/chains";
 import getChain from "@/constants/getChain";
 import { GelatoRelayPack } from '@safe-global/relay-kit'
-import AccountAbstraction from '@safe-global/account-abstraction-kit-poc'
+import AccountAbstraction, { AccountAbstractionConfig } from '@safe-global/account-abstraction-kit-poc'
 import usePolling from "@/hooks/usePolling";
-import { MetaTransactionData, MetaTransactionOptions, SafeTransactionDataPartial } from "@safe-global/safe-core-sdk-types";
+import { MetaTransactionData, MetaTransactionOptions, OperationType, SafeTransactionDataPartial } from "@safe-global/safe-core-sdk-types";
 import ABI from "../abi/APEABI.json";
 import { GelatoRelay, SponsoredCallRequest } from "@gelatonetwork/relay-sdk";
 import Safe, { EthersAdapter } from "@safe-global/protocol-kit";
@@ -42,6 +42,7 @@ type accountAbstractionContextValue = {
     // closeMoneriumFlow: () => void
     approveAPEStaking: () => void
     mintAPECoin: () => void
+    relayMintApeCoin: () => void
 }
 
 const initialState = {
@@ -439,6 +440,124 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
 
     }
 
+    const relayMintApeCoin = async () => {
+        if (web3Provider) {
+            try {
+
+                const owner = ownerAddress;
+                const safeAddress = safes[0];
+                console.log("Owner and Safe Address ", owner, safeAddress, safes);
+
+                const apiKey = 'DyZp_HnJ5pV5s3iCNCxiycSL1M8cM_Av7WzdYIUiobM_';
+
+                const relayPack = new GelatoRelayPack(apiKey);
+
+                const signer = web3Provider.getSigner()
+                let provider;
+
+                if (web3AuthModalPack) {
+                    provider = web3AuthModalPack.getProvider() as ethers.providers.ExternalProvider
+                }
+
+                console.log("Signer and Provider ", signer, provider);
+
+
+                const ethAdapter = new EthersAdapter({
+                    ethers,
+                    signerOrProvider: signer || provider
+                })
+
+
+                const safeSDK = await Safe.create({
+                    ethAdapter,
+                    safeAddress
+                });
+
+
+                const apeCoin = '0x328507DC29C95c170B56a1b3A758eB7a9E73455c';
+
+                const contract = new ethers.Contract(
+                    apeCoin,
+                    ABI,
+                    signer,//or provider check once
+                )
+
+                const safeTransactionData: MetaTransactionData = {
+                    to: contract.address,
+                    data: contract.interface.encodeFunctionData('mint', [
+                        safeAddress,
+                        '1000000000000000000' // 1.0 ERC20
+                    ]),
+                    value: "0",
+                    operation: OperationType.Call,
+                };
+
+                const safeAccountAbstraction = new AccountAbstraction(signer);
+                const sdkConfig: AccountAbstractionConfig = {
+                    relayPack,
+                };
+                await safeAccountAbstraction.init(sdkConfig);
+                const gasLimit = "1000000";
+                const txConfig = {
+                    TO: apeCoin,
+                    DATA: safeTransactionData,
+                    VALUE: "0",
+                    // Options:
+                    GAS_LIMIT: gasLimit,
+                    GAS_TOKEN: ethers.constants.AddressZero,
+                };
+
+                const predictedSafeAddress = await safeAccountAbstraction.getSafeAddress();
+                console.log({ predictedSafeAddress });
+
+                const isSafeDeployed = await safeAccountAbstraction.isSafeDeployed();
+                console.log({ isSafeDeployed });
+
+                const safeBalance = await web3Provider.getBalance(predictedSafeAddress);
+
+                const chainId = 5;
+
+                const relayFee = await relayPack.getEstimateFee(
+                    chainId,
+                    txConfig.GAS_LIMIT,
+                    txConfig.GAS_TOKEN
+                );
+
+                console.log("safe Balance", safeBalance.toString());
+
+                console.log("Relay Fee", relayFee.toString());
+
+                const safeTransactions: MetaTransactionData[] = [
+                    {
+                        to: contract.address,
+                        data: contract.interface.encodeFunctionData('mint', [
+                            safeAddress,
+                            '1000000000000000000' // 1.0 ERC20
+                        ]),
+                        value: "0",
+                        operation: OperationType.Call,
+                    },
+                ];
+                const options: MetaTransactionOptions = {
+                    gasLimit: gasLimit,
+                    gasToken: ethers.constants.AddressZero,
+                    // isSponsored: false
+                };
+
+                const response = await safeAccountAbstraction.relayTransaction(
+                    safeTransactions,
+                    options
+                );
+                console.log(`https://relay.gelato.digital/tasks/status/${response} `);
+
+
+
+            } catch (error) {
+                console.log("Error", error);
+            }
+        }
+    }
+
 
 
     return (
@@ -459,7 +578,8 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
             logoutWeb3Auth,
             relayTransaction,
             approveAPEStaking,
-            mintAPECoin
+            mintAPECoin,
+            relayMintApeCoin
         }}>
             {children}
         </AccountAbstractionContext.Provider>

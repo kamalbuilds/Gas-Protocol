@@ -14,6 +14,7 @@ type AddressLabelProps = {
     isTransactionAddress?: boolean
     showBlockExplorerLink?: boolean
     showCopyIntoClipboardButton?: boolean
+    useFullAddress?: boolean
 }
 
 
@@ -21,7 +22,8 @@ const AddressLabel = ({
     address,
     isTransactionAddress,
     showBlockExplorerLink,
-    showCopyIntoClipboardButton = true
+    showCopyIntoClipboardButton = true,
+    useFullAddress = false
 }: AddressLabelProps) => {
 
     const addressLabel = useMemoizedAddressLabel(address)
@@ -35,7 +37,7 @@ const AddressLabel = ({
 
     return (
         <div className='flex flex-row gap-1 items-center'>
-            <span>{addressLabel}</span>
+            <span>{useFullAddress ? address : addressLabel}</span>
             {showBlockExplorerLink && blockExplorerLink && (
                 <Link target='_blank' href={blockExplorerLink}><MdOpenInNew /></Link>
             )}

@@ -18,7 +18,9 @@ const Navbar = () => {
 
 
             {!isAuthenticated ? (
-                <button className='border-2 border-transparent rounded-lg py-2 px-4 bg-[#1d4ed8]' onClick={loginWeb3Auth}>Login</button>
+                <Link href='/login'>
+                    <button className='border-2 border-transparent rounded-lg py-2 px-4 bg-[#1d4ed8]'>Login</button>
+                </Link>
             ) : (
                 <div className='flex flex-row gap-5'>
                     <Link href='/profile'>
