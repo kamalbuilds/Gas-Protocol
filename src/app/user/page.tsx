@@ -4,7 +4,6 @@ import Image from 'next/image'
 import APEProtocol from '../../assets/APECoinProtocol.png';
 import Link from 'next/link';
 import MakerProtocol from '../../assets/MakerDao.png';
-import Sismo from '@/components/Sismo';
 
 export default function User() {
   return (
@@ -86,9 +85,7 @@ export default function User() {
               "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33"
             ]}
             whitelistedContracts={[
-              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
-              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
-              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33"
+              "0x83f20f44975d03b1b09e64809b757c47f942beea",
             ]}
             proofrequest={true}
           />
