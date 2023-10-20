@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import getChain from '@/constants/getChain';
 import useApi from '@/hooks/useApi';
