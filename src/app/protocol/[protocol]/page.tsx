@@ -1,109 +1,136 @@
-"use client"
-import * as LitJsSdk from '@lit-protocol/lit-node-client';
+"use client";
 import { useState } from 'react';
+import {
+  Button,
+  ChakraProvider,
+  Container,
+  Input,
+  VStack,
+} from '@chakra-ui/react';
+import * as LitJsSdk from '@lit-protocol/lit-node-client';
 
 function App() {
-
-  interface BenchmarkedResult<T> {
-    duration: string;
-    result: T;
-  }
-
-async function benchmark<T>(fn: () => Promise<T>): Promise<BenchmarkedResult<T>> {
-    const t0 = performance.now();
-    const result = await fn();
-    const t1 = performance.now();
-
-    return {
-        duration: (t1 - t0) + " ms",
-        result
-    };
-}
-
   const [str, setStr] = useState('This test is working! Omg!');
+  const [encryptedStr, setEncryptedStr] = useState('');
+  const [decryptedStr, setDecryptedStr] = useState('');
 
-  const go = async () => {
-
-    const litNodeClient = new LitJsSdk.LitNodeClient({
-      litNetwork: 'cayenne',
-    });
-    await litNodeClient.connect();
-
-
-    // --------- NEXT STEP ---------
-    const authRes = await benchmark(async () => {
-      return LitJsSdk.checkAndSignAuthMessage({
-        chain: 'ethereum'
+  const encrypt = async () => {
+    try {
+      const litNodeClient = new LitJsSdk.LitNodeClient({
+        litNetwork: 'cayenne',
       });
-    });
+      await litNodeClient.connect();
 
-    const accs = [
-      {
-        contractAddress: '',
-        standardContractType: '',
+      const authRes = await LitJsSdk.checkAndSignAuthMessage({
         chain: 'ethereum',
-        method: 'eth_getBalance',
-        parameters: [':userAddress', 'latest'],
-        returnValueTest: {
-          comparator: '>=',
-          value: '0',
+      });
+
+      const accss = [
+        {
+          contractAddress: '',
+          standardContractType: '',
+          chain: 'ethereum',
+          method: 'eth_getBalance',
+          parameters: [':userAddress', 'latest'],
+          returnValueTest: {
+            comparator: '>=',
+            value: '0',
+          },
         },
-      },
-    ];
+      ];
 
-    console.log("NETWORK PUB KEY:", litNodeClient.networkPubKey);
+      const accs = [
+        {
+          contractAddress: '',
+          standardContractType: '',
+          chain: 'ethereum',
+          method: '',
+          parameters: [
+            ':userAddress',
+          ],
+          returnValueTest: {
+            comparator: '=',
+            value: '0xCF8D2Da12A032b3f3EaDC686AB18551D8fD6c132'
+          }
+        }
+      ]
 
-
-    // --------- NEXT STEP ---------
-    const encryptRes = await benchmark(async () => {
-      return LitJsSdk.encryptString({
+      const encryptRes = await LitJsSdk.encryptString({
         accessControlConditions: accs,
-        authSig: authRes.result,
+        authSig: authRes,
         chain: 'ethereum',
         dataToEncrypt: str,
       }, litNodeClient);
-    });
+      console.log('encryptRes', encryptRes);
 
+      setEncryptedStr(encryptRes.ciphertext);
+    } catch (error) {
+      console.error('Encryption error:', error);
+    }
+  };
 
-    // --------- NEXT STEP ---------
-    const decryptRes = await benchmark(async () => {
-      return LitJsSdk.decryptToString({
+  const decrypt = async () => {
+    try {
+      const litNodeClient = new LitJsSdk.LitNodeClient({
+        litNetwork: 'cayenne',
+      });
+      await litNodeClient.connect();
+
+      const authRes = await LitJsSdk.checkAndSignAuthMessage({
+        chain: 'ethereum',
+      });
+
+      const accs = [
+        {
+          contractAddress: '',
+          standardContractType: '',
+          chain: 'ethereum',
+          method: 'eth_getBalance',
+          parameters: [':userAddress', 'latest'],
+          returnValueTest: {
+            comparator: '>=',
+            value: '0',
+          },
+        },
+      ];
+
+      // You should replace 'encryptedStr' with the actual ciphertext.
+      const decryptRes = await LitJsSdk.decryptToString({
         accessControlConditions: accs,
-        ciphertext: encryptRes.result.ciphertext,
-        dataToEncryptHash: encryptRes.result.dataToEncryptHash,
-        authSig: authRes.result,
+        ciphertext: encryptedStr, // Replace with actual ciphertext
+        dataToEncryptHash: '', // Replace with the hash
+        authSig: authRes,
         chain: 'ethereum',
       }, litNodeClient);
-    })
-
-  }
+      console.log('decryptRes', decryptRes);
+      
+      setDecryptedStr(decryptRes);
+    } catch (error) {
+      console.error('Decryption error:', error);
+    }
+  };
 
   return (
-    <>
-    <div className="App">
-        <h4>
-          Encrypt your API Key :<br />
-        </h4>
-        <table>
-          <tr>
-            <td>
-              <label>String</label>
-            </td>
-
-          </tr>
-          <tr>
-            <td>
-              <input type="text" value={str} onChange={(newStr) => {
-                setStr(newStr.target.value);
-              }} />
-            </td>
-
-          </tr>
-        </table>
-
-        <button onClick={go}>Encrypt & Decrypt String!</button>
-    </div>
-    </>
+    <Container maxW="lg" p={4}>
+      <VStack spacing={4}>
+        <h4>Encrypt and Decrypt Your String:</h4>
+        <Input
+          type="text"
+          value={str}
+          onChange={(e) => {
+            setStr(e.target.value);
+          }}
+        />
+        <Button colorScheme="blue" onClick={encrypt}>
+          Encrypt String
+        </Button>
+        <Button colorScheme="green" onClick={decrypt}>
+          Decrypt String
+        </Button>
+        {encryptedStr && <p>Encrypted String: {encryptedStr}</p>}
+        {decryptedStr && <p>Decrypted String: {decryptedStr}</p>}
+      </VStack>
+    </Container>
   );
 }
 

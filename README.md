@@ -15,7 +15,12 @@ If you are a developer with a new protocol, game, or NFT project, this can be wh
 
 ## Technologies used
 
-Safe and Gelato
+1. Safe and Gelato
 
 EIP 712 - for signing the meta txns
 EIP 2773 - for relaying transactions
+
+2. TableLand
+
+0xkamal7/Gas Protocol Dev Address- 0xCF8D2Da12A032b3f3EaDC686AB18551D8fD6c132
+https://tablescan.io/protocols_80001_7960

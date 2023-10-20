@@ -28,7 +28,6 @@
     "axios": "^1.5.1",
     "ethers": "5.7.2",
     "framer-motion": "^10.16.4",
-    "lit-js-sdk": "^1.1.250",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",

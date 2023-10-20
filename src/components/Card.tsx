@@ -20,6 +20,7 @@ import Link from 'next/link';
   };
 
   export function Card({ title, imageSrc, tags, description, buttonText , url} : CardProps) {
+    let link = url;
     return (
       <Center as='section' bg='gray.100' h='100vh'>
         <Box maxW='420px' bg='white' p='6'>
@@ -42,7 +43,7 @@ import Link from 'next/link';
           </Heading>
           <Text className='text-black'>{description}</Text>
           <Center my='6'>
-            <Link href={`/${url}`}>
+            <Link href={link} passHref>
             <Button colorScheme='blue' className='text-black'>{buttonText}</Button>
             </Link>
           </Center>
