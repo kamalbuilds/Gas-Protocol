@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import FunctionForm from '@/components/ContractExtractor/FunctionForm';
 import { AccountAbstractionContext } from '@/contexts/AccountAbstractionContext';
@@ -11,13 +12,14 @@ import { MetaTransactionData, MetaTransactionOptions, OperationType } from '@saf
 import AccountAbstraction, { AccountAbstractionConfig } from '@safe-global/account-abstraction-kit-poc';
 import { useRouter } from 'next/router'
 import { useParams } from 'next/navigation';
+import { Database } from "@tableland/sdk";
 
 const tokenBNtoNumber = (tokenBn: any) => {
     return tokenBn.div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(10))).toNumber() / 100000000
 }
 
 const Page = () => {
-    const [contractAddress, setContractAddress] = useState(null);
+    const [contractAddress, setContractAddress] = useState<string>("");
     const [contractABI, setContractABI] = useState({});
 
     const [functions, setFunctions] = useState<any>({});
@@ -27,17 +29,41 @@ const Page = () => {
     const [functionInput, setFunctionInput] = useState(null);
 
     const [inputValues, setInputValues] = useState({});
-
+    const [signer, setSigner] = useState<ethers.Signer | undefined>(undefined);
+    const [relayapikey, setRelayApiKey] = useState<string>("DyZp_HnJ5pV5s3iCNCxiycSL1M8cM_Av7WzdYIUiobM_");
     // const router = useRouter();
 
     const { address } = useParams();
 
-    // console.log("Router", router);
-    console.log("param", address);
+    async function read() {
+        try {
+          const db = new Database({ signer });
+            const { results } = await db
+              .prepare(
+                `SELECT protocol_name, encrypted_apikey, whitelisted_addresses, contract_address FROM gaslessprotocols_80001_8204 WHERE contract_address = ?;`
+              )
+              .bind(contractAddress)
+              .all();
+      
+            if (results.length > 0) {
+              const encryptedApiKey = results[0].encrypted_apikey;
+              if(encryptedApiKey) {
+                setRelayApiKey(encryptedApiKey);
+              }
+              console.log(`Encrypted API Key for address 0x1234: ${encryptedApiKey}`);
+            } else {
+              console.log("No data found for address 0x1234");
+            }
+        } catch (err) {
+          console.error(err.message);
+        }
+      }
+      
 
     useEffect(() => {
         if (address) {
             setContractAddress(address);
+            read();
         }
     }, [address])
 
@@ -61,7 +87,7 @@ const Page = () => {
         setIsLoading(true);
         console.log("Contract Address", contractAddress);
 
-        const ETHERSCAN_API = process.env.ETHERSCAN_API_KEY;
+        const ETHERSCAN_API = process.env.ETHERSCAN_relayapikey;
 
         console.log("API key", ETHERSCAN_API);
         if (contractAddress) {
@@ -136,11 +162,9 @@ const Page = () => {
             const safeAddress = safes[0];
             console.log("Owner and Safe Address ", owner, safeAddress, safes);
 
-            const API_KEY = 'DyZp_HnJ5pV5s3iCNCxiycSL1M8cM_Av7WzdYIUiobM_';
-
-            const relayPack = new GelatoRelayPack(API_KEY);
+            const relayPack = new GelatoRelayPack(relayapikey);
             setRelayPackInstance(relayPack);
-            console.log("API key and relay ", API_KEY, relayPack);
+            console.log("API key and relay ", relayapikey, relayPack);
 
             const signer = web3Provider.getSigner();
             console.log("Signer ", signer);

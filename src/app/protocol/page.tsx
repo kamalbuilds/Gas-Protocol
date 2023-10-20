@@ -1,3 +1,5 @@
+// @ts-nocheck
+"use client";
 import { Card } from '@/components/Card'
 import ProtocolCard from '@/components/ProtocolCard/ProtocolCard'
 import Image from 'next/image'
@@ -5,11 +7,72 @@ import APEProtocol from '../../assets/APECoinProtocol.png';
 import Link from 'next/link';
 import Register from '@/components/Register/Register';
 import MakerDao from '../../assets/makerdao.png';
+import { Database } from '@tableland/sdk';
+import {ethers } from 'ethers';
+import { useState , useEffect} from 'react';
 
 export default function User() {
 
-  console.log("Image SRC", APEProtocol);
+  const [signer, setSigner] = useState<ethers.Signer | undefined>(undefined);
+  const[protocolData, setProtocolData] = useState<any>([]);
 
+  useEffect(() => {
+    // Fetch data for each protocol when the component mounts
+    fetchProtocolData();
+  }, []);
+
+  async function read(protocol_name : string) {
+    try {
+      const db = new Database({ signer });
+        const { results } = await db
+          .prepare(
+            `SELECT protocol_name, encrypted_apikey, whitelisted_addresses, contract_address FROM gaslessprotocols_80001_8204 WHERE protocol_name = ?;`
+          )
+          .bind(protocol_name)
+          .all();
+  
+        if (results.length > 0) {
+          console.log(results,"results")
+          const whitelistedAdd = results[0].whitelisted_addresses;
+          const contractAddress = results[0].contract_address;
+          return {
+            protocolName: protocol_name,
+            contractAddress: contractAddress,
+            whitelistedAddresses: whitelistedAdd,
+          };
+        } else {
+          console.log("No data found for the protocol ", protocol_name);
+        }
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function fetchProtocolData() {
+    // Define an array of protocol information
+    const protocols = [
+      { name: 'APE Protocol'},
+      { name: 'MakerDAO'},
+      // Add more protocols as needed
+    ];
+
+    const dataPromises = protocols.map(async (protocol) => {
+      const data = await read(protocol.name);
+      console.log(data,"data")
+      if (data) {
+        return data;
+      }
+    });
+
+    const protocolDataResults = await Promise.all(dataPromises);
+
+    // Filter out null results (protocols with no data found)
+    const filteredProtocolData = protocolDataResults.filter((data) => data !== null);
+
+    // Update the state with the protocol data
+    setProtocolData(filteredProtocolData);
+    console.log(filteredProtocolData,"protocolData");
+  }
 
   return (
     <main className="flex  flex-col items-center justify-between p-12">
@@ -47,19 +110,11 @@ export default function User() {
             name: 'User-Onboarding',
             color: 'red'
           }]}
-          whitelistedContracts={[
-            "0x328507DC29C95c170B56a1b3A758eB7a9E73455c",
-            "0xF40299b626ef6E197F5d9DE9315076CAB788B6Ef",
-            "0x3f228cBceC3aD130c45D21664f2C7f5b23130d23"
-          ]}
-          whitelistedAddresses={[
-            "0x784088E22Aa7BEe9184D6792bc93665B5216B6Eb",
-            "0x4657E728aAA33ae73Ce84311F74E34F0723f571a",
-            "0x45D16735BEa25901E53B402A554DA6a4d74180E7"
-          ]}
+          whitelistedContracts={protocolData[0]?.contractAddress}
+          whitelistedAddresses={protocolData[0]?.whitelistedAddresses}
         />
         <ProtocolCard
-          title="Maker DAO Protocol"
+          title="Maker DAO"
           src={MakerDao}
           tags={[{
             name: 'Borrowing',
@@ -72,16 +127,8 @@ export default function User() {
             color: 'green'
           },
           ]}
-          whitelistedAddresses={[
-            "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
-            "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
-            "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33"
-          ]}
-          whitelistedContracts={[
-            "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
-            "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
-            "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33"
-          ]}
+          whitelistedAddresses={protocolData[1]?.whitelistedAddresses}
+          whitelistedContracts={protocolData[1]?.contractAddress}
         />
       </div>
 

@@ -86,23 +86,47 @@ export function Tableland({
     }
   }
 
+  // async function read() {
+  //   try {
+  //     const db = new Database({ signer });
+  //     if (tableName !== undefined) {
+  //       const { results } = await db
+  //         .prepare(
+  //           `SELECT protocol_name, encrypted_apikey, whitelisted_addresses, contract_address FROM ${tableName}`
+  //         )
+  //         .all();
+  //       console.log(`Read data from table '${tableName}':`);
+  //       console.log(results);
+  //       // You can set the retrieved data in the state or use it as needed.
+  //     }
+  //   } catch (err: any) {
+  //     console.error(err.message);
+  //   }
+  // }
+
   async function read() {
     try {
       const db = new Database({ signer });
       if (tableName !== undefined) {
         const { results } = await db
           .prepare(
-            `SELECT protocol_name, encrypted_apikey, whitelisted_addresses, contract_address FROM ${tableName}`
+            `SELECT protocol_name, encrypted_apikey, whitelisted_addresses, contract_address FROM ${tableName} WHERE contract_address = ?;`
           )
+          .bind("0xD8134205b0328F5676aaeFb3B2a0DC15f4029d8C")
           .all();
-        console.log(`Read data from table '${tableName}':`);
-        console.log(results);
-        // You can set the retrieved data in the state or use it as needed.
+  
+        if (results.length > 0) {
+          const encryptedApiKey = results[0].encrypted_apikey;
+          console.log(`Encrypted API Key for address 0x1234: ${encryptedApiKey}`);
+        } else {
+          console.log("No data found for address 0x1234");
+        }
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error(err.message);
     }
   }
+  
 
   // Handle button click actions
   async function handleClick(e: any) {

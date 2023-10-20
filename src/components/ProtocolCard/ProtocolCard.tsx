@@ -33,7 +33,7 @@ const ProtocolCard = ({
                     {proofrequest && <Button className='text-white bg-grey-400 hover:bg-purple-900 w-100'>Submit Proof</Button>}
                     <div className='mb-8 mt-6'>
                         <div className='flex gap-4 mb-2'>
-                            {tags?.map((tag) => (
+                            {tags?.map((tag: any) => (
                                 <div key={tag} style={{ backgroundColor: tag.color }} className=' py-[6px] px-4 border-gray-600 rounded-lg text-[12px]'>
                                     {tag.name}
                                 </div>
@@ -56,13 +56,10 @@ const ProtocolCard = ({
                                 </h2>
                                 <AccordionPanel pb={4}>
                                     <UnorderedList>
-                                        {whitelistedContracts?.map((contract) => {
-                                            return (
-                                                <ListItem>
-                                                    <AddressLabel address={contract} showBlockExplorerLink useFullAddress enableTransaction />
-                                                </ListItem>
-                                            )
-                                        })}
+                                        <ListItem>
+                                            <AddressLabel address={whitelistedContracts} showBlockExplorerLink useFullAddress enableTransaction />
+                                        </ListItem>
+
                                     </UnorderedList>
                                 </AccordionPanel>
                             </AccordionItem>}
@@ -78,13 +75,9 @@ const ProtocolCard = ({
                                 </h2>
                                 <AccordionPanel pb={4}>
                                     <UnorderedList>
-                                        {whitelistedAddresses?.map((address) => {
-                                            return (
-                                                <ListItem>
-                                                    <AddressLabel address={address} showBlockExplorerLink useFullAddress />
+                                    <ListItem>
+                                        <AddressLabel address={whitelistedAddresses} showBlockExplorerLink useFullAddress />
                                                 </ListItem>
-                                            )
-                                        })}
                                     </UnorderedList>
                                 </AccordionPanel>
                             </AccordionItem>}
