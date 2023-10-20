@@ -12,6 +12,7 @@ export default function User() {
           tags={['Staking', 'User-Onboarding']}
           description="Svartifoss is a waterfall in Skaftafell in Vatnajökull National Park in Iceland, and is one of the most popular sights in the park. It is surrounded by dark lava columns, which gave rise to its name. The base of this waterfall is noteworthy for its sharp rocks."
           buttonText="Enter 🐵 "
+          url='/protocol/ape'
         />
         <Card
           title="Maker DAO Protocol"
@@ -19,6 +20,7 @@ export default function User() {
           tags={['Borrowing', 'staking', 'Lending']}
           description="Svartifoss is a waterfall in Skaftafell in Vatnajökull National Park in Iceland, and is one of the most popular sights in the park. It is surrounded by dark lava columns, which gave rise to its name. The base of this waterfall is noteworthy for its sharp rocks."
           buttonText="Enter MakerDAO 🚀"
+          url='/protocol/makerdao'
         />
       </div>
 

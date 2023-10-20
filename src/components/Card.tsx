@@ -40,10 +40,10 @@ import Link from 'next/link';
           <Heading my='4' size='lg'>
             {title}
           </Heading>
-          <Text>{description}</Text>
+          <Text className='text-black'>{description}</Text>
           <Center my='6'>
             <Link href={`/${url}`}>
-            <Button colorScheme='blue'>{buttonText}</Button>
+            <Button colorScheme='blue' className='text-black'>{buttonText}</Button>
             </Link>
           </Center>
         </Box>
