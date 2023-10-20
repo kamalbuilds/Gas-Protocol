@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import { createContext, useCallback, useEffect, useState } from "react";
 import { Web3AuthOptions } from '@web3auth/modal';
