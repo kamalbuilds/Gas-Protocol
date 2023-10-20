@@ -10,13 +10,14 @@ import { ethers, providers, utils } from "ethers";
 import { MetaTransactionData, MetaTransactionOptions, OperationType } from '@safe-global/safe-core-sdk-types';
 import AccountAbstraction, { AccountAbstractionConfig } from '@safe-global/account-abstraction-kit-poc';
 import { useRouter } from 'next/router'
+import { useParams } from 'next/navigation';
 
 const tokenBNtoNumber = (tokenBn: any) => {
     return tokenBn.div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(10))).toNumber() / 100000000
 }
 
 const Page = () => {
-    const [contractAddress, setContractAddress] = useState();
+    const [contractAddress, setContractAddress] = useState(null);
     const [contractABI, setContractABI] = useState({});
 
     const [functions, setFunctions] = useState<any>({});
@@ -27,9 +28,20 @@ const Page = () => {
 
     const [inputValues, setInputValues] = useState({});
 
-    const router = useRouter();
-    console.log("Router", router);
-    const handleSelect = (e : any) => {
+    // const router = useRouter();
+
+    const { address } = useParams();
+
+    // console.log("Router", router);
+    console.log("param", address);
+
+    useEffect(() => {
+        if (address) {
+            setContractAddress(address);
+        }
+    }, [address])
+
+    const handleSelect = (e: any) => {
         setFunctionSelected(e.target.value);
         setFunctionInput(functions[e.target.value]?.inputs);
     }
@@ -292,7 +304,7 @@ const Page = () => {
 
                     <FormLabel>Enter Contract Address</FormLabel>
                     <InputGroup>
-                        <Input placeholder='Enter Contract Address' onChange={handleInputChange} />
+                        <Input defaultValue={contractAddress} placeholder='Enter Contract Address' onChange={handleInputChange} />
                         <InputRightElement>
                             <Oval
                                 height={25}

@@ -120,6 +120,8 @@ const Page = () => {
     const [loadingGas, setLoadingGas] = useState<boolean>(false);
     const [loadingTxn, setLoadingTxn] = useState<boolean>(false);
 
+    console.log("contract address", contractAddress);
+
     useEffect(() => {
         console.log("Func started")
         initiateSafe();
@@ -132,11 +134,11 @@ const Page = () => {
             const safeAddress = safes[0];
             console.log("Owner and Safe Address ", owner, safeAddress, safes);
 
-            const API_KEY = 'DyZp_HnJ5pV5s3iCNCxiycSL1M8cM_Av7WzdYIUiobM_';
+            const default_API_KEY = 'ojjwSexHlnLuMshnP7_Ok59cdIRMTH_scoXZkqSUBzE_';
 
-            const relayPack = new GelatoRelayPack(API_KEY);
+            const relayPack = new GelatoRelayPack(default_API_KEY);
             setRelayPackInstance(relayPack);
-            console.log("API key and relay ", API_KEY, relayPack);
+            console.log("API key and relay ", default_API_KEY, relayPack);
 
             const signer = web3Provider.getSigner();
             console.log("Signer ", signer);
@@ -278,6 +280,7 @@ const Page = () => {
                     txConfig.GAS_TOKEN
                 );
 
+                console.log("relayFee", relayFee, typeof (relayFee))
                 console.log("Relay Fee", relayFee.toString());
                 const txnGasFees = relayFee.toString();
                 setTxnGasFees(txnGasFees);
@@ -304,7 +307,9 @@ const Page = () => {
                         Contract Details
                     </p>
 
-                    <button onClick={initiateSafe}>Initiate</button>
+                    <button className='border-2 p-2 my-4 w-fit rounded-lg border-transparent py-2 px-4 bg-[#1d4ed8]' onClick={initiateSafe}>
+                        Initiate Safe Wallet
+                    </button>
 
                     <FormLabel>Enter Contract Address</FormLabel>
                     <InputGroup>
@@ -364,7 +369,7 @@ const Page = () => {
 
                                     <div className='flex flex-row gap-2'>
                                         <p>Gas Fees:  </p>
-                                        <p>{txnGasFees}</p>
+                                        <p>{txnGasFees} WEI</p>
                                     </div>
 
                                 </div>

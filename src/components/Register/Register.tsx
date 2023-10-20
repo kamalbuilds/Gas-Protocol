@@ -63,10 +63,6 @@ const Register = () => {
     }
 
 
-    const handleSubmit = () => {
-
-    }
-
     return (
         <div className='w-[100%]'>
             <div className='flex flex-row shadow-lg border-2 border-zinc-800'>
@@ -89,20 +85,23 @@ const Register = () => {
                 <div className='flex flex-col w-9/12 ml-8 mr-4 mt-8 mb-8 gap-8'>
                     {activeState === 1 && (
                         <>
-                        <EnterDetails
-                        handleAPIKey={handleAPIKey}
-                        contractAddresses={contractAddresses}
-                        whitelistedAddresses={whitelistedAddresses}
-                        updateContractAddresses={updateContractAddresses}
-                        removeContractAddress={removeContractAddress}
-                        updateWalletAddress={updateWalletAddress}
-                        removeWalletAddress={removeWalletAddress}
-                        handleSubmit={handleSubmit}
-                        handleProtocolName={handleProtocolName}
-                    />
-                    <Litencrypt />
-                    <Tableland protocol_name={protocol_name} encrypted_apikey={apiKey} whitelisted_addresses={whitelistedAddresses} contract_address={contractAddresses}/>
-                    </>
+                            <EnterDetails
+                                handleAPIKey={handleAPIKey}
+                                contractAddresses={contractAddresses}
+                                whitelistedAddresses={whitelistedAddresses}
+                                updateContractAddresses={updateContractAddresses}
+                                removeContractAddress={removeContractAddress}
+                                updateWalletAddress={updateWalletAddress}
+                                removeWalletAddress={removeWalletAddress}
+                                handleProtocolName={handleProtocolName}
+                            />
+                            <Litencrypt />
+                            <Tableland
+                                protocol_name={protocol_name}
+                                encrypted_apikey={apiKey}
+                                whitelisted_addresses={whitelistedAddresses}
+                                contract_address={contractAddresses} />
+                        </>
                     )}
 
                     {activeState === 2 && (

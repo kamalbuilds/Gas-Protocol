@@ -13,7 +13,6 @@ const EnterDetails = ({
     removeContractAddress,
     updateWalletAddress,
     removeWalletAddress,
-    handleSubmit,
     handleProtocolName
 }: any) => {
 
@@ -90,7 +89,6 @@ const EnterDetails = ({
                 </List>
             </FormControl>
 
-            <button className='border-2 border-transparent rounded-lg py-2 px-4 bg-[#1d4ed8]' onClick={handleSubmit}>Submit Details</button>
         </div>
     );
 };

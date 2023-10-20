@@ -14,6 +14,7 @@ type AddressLabelProps = {
     showBlockExplorerLink?: boolean
     showCopyIntoClipboardButton?: boolean
     useFullAddress?: boolean
+    enableTransaction?: boolean
 }
 
 
@@ -22,7 +23,8 @@ const AddressLabel = ({
     isTransactionAddress,
     showBlockExplorerLink,
     showCopyIntoClipboardButton = true,
-    useFullAddress = false
+    useFullAddress = false,
+    enableTransaction = false,
 }: AddressLabelProps) => {
 
     const addressLabel = useMemoizedAddressLabel(address)
@@ -46,13 +48,13 @@ const AddressLabel = ({
                     <AiOutlineCopy />
                 </div>)}
 
-            {showCopyIntoClipboardButton && (
+            {enableTransaction && (
                 <Link href={`/transactions/${address}`}>
                     {<ImNewTab />}
                 </Link>
 
             )}
-                
+
         </div>
     );
 };

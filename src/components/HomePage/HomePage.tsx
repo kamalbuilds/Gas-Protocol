@@ -25,26 +25,26 @@ const HomePage = () => {
             <div className='flex flex-row'>
                 <span
                     className="span-anim"
-                    data-content="Back"
+                    data-content="Gas"
                     style={{ "--start-color": "red", "--end-color": "orange", "--delay": 0, color: "white", marginRight: "30px" } as React.CSSProperties}
                 >
-                    Back
+                    Gas
                 </span>
 
                 <span
                     className="span-anim"
-                    data-content="Best"
+                    data-content="Less"
                     style={{ "--start-color": "blue", "--end-color": "cyan", "--delay": 2, color: "white", marginRight: "30px" } as React.CSSProperties}
                 >
-                    Best
+                    Less
                 </span>
 
                 <span
                     className="span-anim"
-                    data-content="Projects"
+                    data-content="Transactions"
                     style={{ "--start-color": "green", "--end-color": "lime", "--delay": 4, color: "white", marginRight: "30px" } as React.CSSProperties}
                 >
-                    Projects
+                    Transactions
                 </span>
             </div>
 
@@ -54,9 +54,7 @@ const HomePage = () => {
                     data-aos="zoom-y-out"
                     data-aos-delay="150"
                 >
-                    Empower Dreams, Securely Funded: Fund the best Projects <b>Cross</b>Chain<br /> Where Crowdfunding Shakes hands with DAO for Social Good!
-
-                    We make any transaction gasless
+                    Create Smart Contract Wallet Account using Safe AA Sdk. <br /> Select/Create Transaction of different Protocol<br /> Sign and send the transaction without any gas.
                 </p>
 
                 <div className='flex flex-row items-center gap-8'>

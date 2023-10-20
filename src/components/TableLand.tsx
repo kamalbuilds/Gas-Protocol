@@ -127,26 +127,27 @@ export function Tableland({
     <>
       <div className="w-full max-w-xs mx-6">
         <h2 className="text-xl font-bold mb-2">Store in TableLand</h2>
-        <form className="shadow-md rounded px-2 pt-2 pb-2 mb-2 mr-2">
-          <div className="mb-4">
+        <form className="shadow-md rounded px-2 pt-2 pb-2 mb-2 mr-2 flex flex-row justify-between">
+          <div className=" flex flex-col justify-center mt-8 mb-2">
             <label className="block text-md font-bold mb-2">Write data</label>
             <button
               onClick={handleClick}
               name="write"
               className={
-                "shadow bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none font-bold py-2 px-4 ml-2 rounded w-20"
+                "border-2 border-transparent rounded-lg py-2 px-4 bg-[#1d4ed8] shadow hover:bg-blue-800 focus:shadow-outline focus:outline-none font-bold"
               }
             >
               Write
             </button>
           </div>
-          <div className="flex justify-center mt-8 mb-2">
+          <div className="flex flex-col justify-center mt-8 mb-2">
+            <label className="block text-md font-bold mb-2">Read data</label>
             <button
               type="button"
               onClick={handleClick}
               name="read"
               className={
-                "shadow bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none font-bold py-2 px-4 rounded w-20"
+                "border-2 border-transparent rounded-lg py-2 px-4 bg-[#1d4ed8] shadow hover:bg-blue-800 focus:shadow-outline focus:outline-none font-bold"
               }
             >
               Read
