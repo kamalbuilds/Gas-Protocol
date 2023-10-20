@@ -100,6 +100,14 @@ For eg - The condition of having an NFT as a sign of being a member of that DAO.
 
 https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/Sismo.tsx
 
+https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/app/protocol/%5Bprotocol%5D/page.tsx
+
+https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/ProtocolCard/ProtocolCard.tsx
+
+https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/contexts/ClaimRequestContext.js
+
+https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/sismo-connect-config.ts
+
 ![image](https://github.com/kamalbuilds/Gas-Protocol/assets/95926324/3da38b7a-6cdb-41f0-9018-4546d8059845)
 
 Protcols setup their custom zk proofs to filter their intended users.
