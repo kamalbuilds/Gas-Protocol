@@ -37,7 +37,6 @@ If you are a developer with a new protocol, game, or NFT project, this can be wh
 |                     |                                                                         | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/app/transactions/%5Baddress%5D/page.tsx#L38) |
 | Lit Protocol        | For Encrypting the relay API key using the v3 Encryption Lit SDK and mapping the protocols with their contract address, whitelisted address, and other values. Programatic Signing - | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/api/conditionalsign.ts) |
 |                     |                                                                         | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/Litencrypt.tsx) |
-| Mask Network        | Use of RelationService. Develop this groundbreaking solution using RelationService API, exploring use cases from cross-platform profile search to DAO tooling, and beyond. | N/A |
 | Sismo Connect       | Users can generate zk proofs and submit them to get access to gasless transactions as per the different conditions set by the protocols. For example, the condition of having an NFT as a sign of being a member of that DAO. | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/Sismo.tsx) |
 
 
@@ -55,7 +54,13 @@ https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/SafeAccou
 
 https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/SafeAccountInfo.tsx
 
+![7 png](https://github.com/kamalbuilds/Gas-Protocol/assets/95926324/c977a736-8287-4cf0-a0a9-27202308108d)
+
 ## 2. APE Protocol
+
+Create Custom Zk proofs to filter your real intended users , can request proofs using sismo like are you a member of oyac guild ? have twitter followers > 1000. 
+
+This helps new users onboarding gasless.
 
 https://goerli.etherscan.io/tx/0x6f68ed6f68ec721dd15a09be71f5046c1bc2890b206781ad45b8b0583dbafd7d
 
@@ -85,13 +90,9 @@ Programatic Signing - https://github.com/kamalbuilds/Gas-Protocol/blob/master/sr
 
 https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/Litencrypt.tsx
 
-## 5. Mask Network 
+![image](https://github.com/kamalbuilds/Gas-Protocol/assets/95926324/b1b3ba38-21a4-4da1-98c8-6eebce9efa82)
 
-Use of RelationService
-
-Develop this groundbreaking solution using RelationService API, exploring use cases from cross-platform profile search to DAO tooling, and beyond.
-
-## 6. Sismo Connect 
+## 5. Sismo Connect 
 
 Users can generate zkproofs and submit it to get access to the gasless transactions as per the different conditions set-up by the protocols.
 
@@ -100,3 +101,13 @@ For eg - The condition of having an NFT as a sign of being a member of that DAO.
 https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/Sismo.tsx
 
 ![image](https://github.com/kamalbuilds/Gas-Protocol/assets/95926324/3da38b7a-6cdb-41f0-9018-4546d8059845)
+
+Protcols setup their custom zk proofs to filter their intended users.
+![image](https://github.com/kamalbuilds/Gas-Protocol/assets/95926324/fcc0c297-1049-4dba-bd6e-1c7f974932e8)
+
+![image](https://github.com/kamalbuilds/Gas-Protocol/assets/95926324/55eb08fe-54d2-4494-829d-b3b7233fbe23)
+
+
+Users submit their onchain proofs in the form of zkproofs using sismo
+![image](https://github.com/kamalbuilds/Gas-Protocol/assets/95926324/cd6ecf87-ce30-445f-9c5d-03da4e55847d)
+

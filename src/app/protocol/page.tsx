@@ -101,7 +101,7 @@ export default function User() {
 
       <div className='flex flex-col gap-12 w-[100%]'>
         <ProtocolCard
-          title="APE Protocol"
+          title="APECOINDAO"
           src={APEProtocol}
           tags={[{
             name: 'Staking',
@@ -114,7 +114,7 @@ export default function User() {
           whitelistedAddresses={protocolData[0]?.whitelistedAddresses}
         />
         <ProtocolCard
-          title="Maker DAO"
+          title="MakerDAO"
           src={MakerDao}
           tags={[{
             name: 'Borrowing',
@@ -130,11 +130,6 @@ export default function User() {
           whitelistedAddresses={protocolData[1]?.whitelistedAddresses}
           whitelistedContracts={protocolData[1]?.contractAddress}
         />
-      </div>
-
-      <div className='flex'>
-        Want to get see your protocol in this list ?
-        Reach out to us at <a href='mailto:kamalthedev7@gmail.com' className='mx-4'> Mail ID</a>
       </div>
     </main>
   )
