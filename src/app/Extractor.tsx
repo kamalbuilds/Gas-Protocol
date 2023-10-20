@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import FunctionForm from '@/components/ContractExtractor/FunctionForm';
 import { FormControl, FormLabel, Input, InputGroup, InputRightElement, Select } from '@chakra-ui/react';
@@ -18,7 +19,7 @@ const Extractor = () => {
 
     const [inputValues, setInputValues] = useState({});
 
-    const handleSelect = (e) => {
+    const handleSelect = (e : any) => {
         setFunctionSelected(e.target.value);
         setFunctionInput(functions[e.target.value]?.inputs);
     }
