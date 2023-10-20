@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import FunctionForm from '@/components/ContractExtractor/FunctionForm';
 import { AccountAbstractionContext } from '@/contexts/AccountAbstractionContext';

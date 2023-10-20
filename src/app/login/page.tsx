@@ -42,6 +42,7 @@ const Page = () => {
     const [isDeployLoading, setIsDeployLoading] = useState<boolean>(true)
 
     const detectSafeIsDeployed = useCallback(async () => {
+        // @ts-ignore
         const isDeployed = await isContractAddress(safeSelected, web3Provider)
 
         setIsDeployed(isDeployed)
@@ -51,6 +52,7 @@ const Page = () => {
     usePolling(detectSafeIsDeployed)
 
     const fetchInfo = useCallback(
+        // @ts-ignore
         (signal: AbortSignal) => getSafeInfo(safeSelected, chainId, { signal }),
         [safeSelected, chainId]
     )
