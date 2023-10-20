@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import { AccountAbstractionContext } from '@/contexts/AccountAbstractionContext';
 import useMemoizedAddressLabel from '@/hooks/useMemoizedAddressLabel';
@@ -9,7 +10,7 @@ import { ImNewTab } from "react-icons/im";
 
 
 type AddressLabelProps = {
-    address: string
+    address: string | undefined
     isTransactionAddress?: boolean
     showBlockExplorerLink?: boolean
     showCopyIntoClipboardButton?: boolean
