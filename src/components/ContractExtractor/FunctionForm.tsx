@@ -35,6 +35,7 @@ const FunctionForm = ({
                 </div>
 
                 {functionInput && (
+                    // @ts-ignore
                     functionInput.map((item, index) => (
                         <div key={index}>
                             <FormLabel>{item?.name} ({item?.type})</FormLabel>

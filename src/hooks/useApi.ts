@@ -39,7 +39,8 @@ function useApi<T>(apiCall: apiCallParam<T>, pollingTime?: number): useApiHookRe
 
         return () => {
             abortController.abort()
-            clearInterval(intervalId)
+            // @ts-ignore
+                clearInterval(intervalId)
         }
     }, [apiCall, pollingTime])
 
