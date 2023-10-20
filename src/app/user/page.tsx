@@ -3,7 +3,7 @@ import ProtocolCard from '@/components/ProtocolCard/ProtocolCard'
 import Image from 'next/image'
 import APEProtocol from '../../assets/APECoinProtocol.png';
 import Link from 'next/link';
-import MakerProtocol from '../../assets/MakerDao.png';
+import MakerProtocol from '../../assets/makerdao.png';
 
 export default function User() {
   return (

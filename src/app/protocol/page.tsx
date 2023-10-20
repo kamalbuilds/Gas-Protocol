@@ -4,7 +4,7 @@ import Image from 'next/image'
 import APEProtocol from '../../assets/APECoinProtocol.png';
 import Link from 'next/link';
 import Register from '@/components/Register/Register';
-import MakerDao from '../../assets/MakerDao.png';
+import MakerDao from '../../assets/makerdao.png';
 
 export default function User() {
 
