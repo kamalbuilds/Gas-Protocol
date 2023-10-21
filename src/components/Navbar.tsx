@@ -23,7 +23,7 @@ const Navbar = () => {
                 </Link>
             ) : (
                 <div className='flex flex-row gap-5'>
-                    <Link href='/profile'>
+                    <Link href='/login'>
                         <RxAvatar size={40} />
                     </Link>
                     <button className='border-2 border-transparent rounded-lg py-2 px-4 bg-[#1d4ed8]' onClick={logoutWeb3Auth}>LogOut</button>

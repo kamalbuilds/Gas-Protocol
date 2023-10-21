@@ -31,7 +31,7 @@ export default function User() {
 
 
 
-      <div>
+      <div className='w-[100%]'>
 
         <div className='flex flex-row items-center gap-8 justify-center my-12'>
           <div className='w-[400px] bg-gray-700 h-[4px]'></div>
