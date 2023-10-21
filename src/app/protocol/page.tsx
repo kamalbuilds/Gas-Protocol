@@ -31,7 +31,6 @@ export default function User() {
         <ProtocolCard
           title="Maker DAO Protocol"
           src={APEProtocol}
-          tags={['Borrowing', 'staking', 'Lending']}
           tags={[{
             name: 'Borrowing',
             color: 'red '

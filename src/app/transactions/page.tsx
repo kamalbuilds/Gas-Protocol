@@ -240,7 +240,7 @@ const Page = () => {
     }
 
     return (
-        <div className='w-[90vw]'>
+        <div className='w-[90vw] m-[auto] '>
 
             <div className='flex flex-row gap-8 shadow-lg border-2 border-zinc-800 p-8 rounded-lg'>
                 <FormControl className='w-[50%] flex flex-col'>

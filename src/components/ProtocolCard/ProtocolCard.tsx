@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, ListItem, UnorderedList } from '@chakra-ui/react';
+import AddressLabel from '../AddressLabel';
 
 const ProtocolCard = ({
     title,
@@ -51,10 +52,20 @@ const ProtocolCard = ({
                                     </AccordionButton>
                                 </h2>
                                 <AccordionPanel pb={4}>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo consequat.
+                                    <UnorderedList>
+                                        <ListItem>
+                                            <AddressLabel address={'0x328507DC29C95c170B56a1b3A758eB7a9E73455c'} showBlockExplorerLink useFullAddress />
+                                        </ListItem>
+                                        <ListItem>
+                                            <AddressLabel address={'0x328507DC29C95c170B56a1b3A758eB7a9E73455c'} showBlockExplorerLink useFullAddress />
+                                        </ListItem>
+                                        <ListItem>
+                                            <AddressLabel address={'0x328507DC29C95c170B56a1b3A758eB7a9E73455c'} showBlockExplorerLink useFullAddress />
+                                        </ListItem>
+                                        <ListItem>
+                                            <AddressLabel address={'0x328507DC29C95c170B56a1b3A758eB7a9E73455c'} showBlockExplorerLink useFullAddress />
+                                        </ListItem>
+                                    </UnorderedList>
                                 </AccordionPanel>
                             </AccordionItem>
 
