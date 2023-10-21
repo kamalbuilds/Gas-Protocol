@@ -20,7 +20,7 @@ import SafeApiKit from '@safe-global/api-kit'
 type accountAbstractionContextValue = {
     ownerAddress?: string
     chainId: string
-    // safes: string[]
+    safes: string[]
     chain?: Chain
     loadingWeb3Auth: boolean
     isAuthenticated: boolean
@@ -570,6 +570,7 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
             gelatoTaskId,
             chain,
             safeSelected,
+            safes,
             web3Provider,
             chainId,
             ownerAddress,

@@ -25,3 +25,41 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.span-anim {
+  color: black;
+  display: block;
+  font-size: 15vh;
+  font-weight: bold;
+  position: relative;
+  transition: color 250ms ease-in-out;
+}
+
+.span-anim::before {
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  animation: text 10s infinite alternate calc(var(--delay, 0) * 1s);
+  background-clip: text;
+  background-image: linear-gradient(
+    90deg,
+    var(--start-color),
+    var(--end-color)
+  );
+  content: attr(data-content);
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+}
+
+@keyframes text {
+  0%,
+  60% {
+    opacity: 0;
+  }
+
+  20%,
+  40% {
+    opacity: 1;
+  }
+}
