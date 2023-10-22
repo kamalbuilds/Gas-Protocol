@@ -18,7 +18,8 @@ const SafeDetails = ({
     web3Provider,
     chainId,
     chain,
-    safeBalance
+    safeBalance,
+    setActiveState
 }: any) => {
 
     const [isDeployed, setIsDeployed] = useState<boolean>(false)
@@ -54,10 +55,10 @@ const SafeDetails = ({
                 <div className='bg-red-600 text-white gap-2 rounded-md p-1 flex flex-row mb-4 items-center'>
                     <AiOutlineWarning />
                     <p className='text-[14px]'>
-                        Safe Wallet not deployed yet. Head over to Deploy Safe or click here
+                        Safe Wallet not deployed yet. Head over to Deploy Safe or click {" "}
+                        <span className='m-o hover:underline cursor-pointer' onClick={() => setActiveState(3)}>here</span>
                     </p>
                 </div>
-
             )}
 
             <div>

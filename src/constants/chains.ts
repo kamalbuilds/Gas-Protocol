@@ -33,7 +33,8 @@ export const goerliChain: Chain = {
     blockExplorerUrl: 'https://goerli.etherscan.io',
     color: '#fbc02d',
     transactionServiceUrl: 'https://safe-transaction-goerli.safe.global',
-    isStripePaymentsEnabled: false
+    isStripePaymentsEnabled: false,
+    faucetUrl: 'https://goerlifaucet.com/'
 }
 
 export const mainnetChain: Chain = {

@@ -61,20 +61,24 @@ const HomePage = () => {
 
                 <div className='flex flex-row items-center gap-8'>
                     <button className='border px-4 py-2 opacity-50 hover:opacity-100 border-gray-600 rounded-lg hover:border-white'>
-                        Create Safe Account
+                        <Link href={'/login'}>
+                            Create Safe Account
+                        </Link>
                     </button>
                     <BsArrowRightCircle className='w-[40px] h-[25px]' />
 
                     <button className='border px-4 py-2 opacity-50 hover:opacity-100 border-gray-600 rounded-lg hover:border-white'>
-                        <Link href={'/transactions'}>
-                            Enter Contract Details
+                        <Link href={'/protocol'}>
+                            Select Protocol/Contract Address
                         </Link>
                     </button>
 
                     <BsArrowRightCircle className='w-[40px] h-[25px]' />
 
                     <button className='border px-4 py-2 opacity-50 hover:opacity-100 border-gray-600 rounded-lg hover:border-white'>
-                        Make Transaction Gasless
+                        <Link href={'/transactions'}>
+                            Create Transaction
+                        </Link>
                     </button>
 
 

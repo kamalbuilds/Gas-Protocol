@@ -72,7 +72,11 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
 
     console.log("Owner address", ownerAddress, chainId);
 
-    const isAuthenticated = !!ownerAddress && !!chainId
+    const Authenticated = !!ownerAddress && !!chainId
+
+    const [isAuthenticated, setIsAuthenticated] = useState(Authenticated);
+
+
 
 
     useEffect(() => {
@@ -137,6 +141,7 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
             const userInfo = await web3AuthModalPack.getUserInfo()
             console.log("User info: ", userInfo, web3AuthModalPack, new ethers.providers.Web3Provider(provider));
 
+            setIsAuthenticated(true);
             setUserInfo(userInfo);
             setChainId(chain.id)
             setOwnerAddress(eoa)
@@ -165,6 +170,7 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
         setChainId(chain.id)
         setWeb3Provider(undefined)
         setSafeSelected('')
+        setIsAuthenticated(false);
         // setGelatoTaskId(undefined)
     }
 
@@ -240,14 +246,14 @@ const AccountAbstractionProvider = ({ children }: { children: JSX.Element }) => 
                         to: safeSelected,
                         data: '0x',
                         value: utils.parseUnits('0.001', 'ether').toString(),
-                        operation: 0 // OperationType.Call,
+                        operation: 0,
                     }
                 ]
 
                 const options: MetaTransactionOptions = {
                     isSponsored: false,
-                    gasLimit: '600000', // in this alfa version we need to manually set the gas limit
-                    gasToken: ethers.constants.AddressZero // native token
+                    gasLimit: '600000',
+                    gasToken: ethers.constants.AddressZero
                 }
 
                 const gelatoTaskId = await safeAccountAbstraction.relayTransaction(dumpSafeTransafer, options)

@@ -1,3 +1,4 @@
+"use client"
 import Image from 'next/image';
 import React from 'react';
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, ListItem, UnorderedList } from '@chakra-ui/react';
@@ -7,7 +8,9 @@ import Link from 'next/link';
 const ProtocolCard = ({
     title,
     src,
-    tags
+    tags,
+    whitelistedAddresses,
+    whitelistedContracts
 }: any) => {
 
     console.log("Image SRC", src);
@@ -37,13 +40,13 @@ const ProtocolCard = ({
                                 </div>
                             ))}
                         </div>
-                        <p>Explore the contract addresses that APE DAO has whitelisted.</p>
+                        <p>Explore the contract addresses that {title} has whitelisted.</p>
 
                     </div>
                     <div>
 
                         <Accordion allowToggle defaultIndex={[0]} allowMultiple>
-                            <AccordionItem className='border-slate-700'>
+                            {whitelistedContracts && <AccordionItem className='border-slate-700'>
                                 <h2>
                                     <AccordionButton>
                                         <Box as="span" flex='1' textAlign='left' className='text-gray-500 hover:text-white'>
@@ -54,23 +57,18 @@ const ProtocolCard = ({
                                 </h2>
                                 <AccordionPanel pb={4}>
                                     <UnorderedList>
-                                        <ListItem>
-                                            <AddressLabel address={'0x328507DC29C95c170B56a1b3A758eB7a9E73455c'} showBlockExplorerLink useFullAddress />
-                                        </ListItem>
-                                        <ListItem>
-                                            <AddressLabel address={'0x328507DC29C95c170B56a1b3A758eB7a9E73455c'} showBlockExplorerLink useFullAddress />
-                                        </ListItem>
-                                        <ListItem>
-                                            <AddressLabel address={'0x328507DC29C95c170B56a1b3A758eB7a9E73455c'} showBlockExplorerLink useFullAddress />
-                                        </ListItem>
-                                        <ListItem>
-                                            <AddressLabel address={'0x328507DC29C95c170B56a1b3A758eB7a9E73455c'} showBlockExplorerLink useFullAddress />
-                                        </ListItem>
+                                        {whitelistedContracts?.map((contract) => {
+                                            return (
+                                                <ListItem>
+                                                    <AddressLabel address={contract} showBlockExplorerLink useFullAddress />
+                                                </ListItem>
+                                            )
+                                        })}
                                     </UnorderedList>
                                 </AccordionPanel>
-                            </AccordionItem>
+                            </AccordionItem>}
 
-                            <AccordionItem className='border-slate-700'>
+                            {whitelistedAddresses && <AccordionItem className='border-slate-700'>
                                 <h2>
                                     <AccordionButton>
                                         <Box as="span" flex='1' textAlign='left' className='text-gray-500 hover:text-white' >
@@ -80,12 +78,17 @@ const ProtocolCard = ({
                                     </AccordionButton>
                                 </h2>
                                 <AccordionPanel pb={4}>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                    commodo consequat.
+                                    <UnorderedList>
+                                        {whitelistedAddresses?.map((address) => {
+                                            return (
+                                                <ListItem>
+                                                    <AddressLabel address={address} showBlockExplorerLink useFullAddress />
+                                                </ListItem>
+                                            )
+                                        })}
+                                    </UnorderedList>
                                 </AccordionPanel>
-                            </AccordionItem>
+                            </AccordionItem>}
                         </Accordion>
 
                     </div>
