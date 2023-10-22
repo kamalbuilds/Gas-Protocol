@@ -46,8 +46,12 @@ const AddressLabel = ({
                     <AiOutlineCopy />
                 </div>)}
 
-                {/* <div className='flex flex-row gap-1 items-center'>
-            <span>{useFullAddress ? address : addressLabel}</span> */}
+            {showCopyIntoClipboardButton && (
+                <Link href={`/transactions/${address}`}>
+                    {<ImNewTab />}
+                </Link>
+
+            )}
                 
         </div>
     );
