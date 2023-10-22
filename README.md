@@ -32,11 +32,15 @@ We make the deposit and widrawl functions gasless.
 application that makes use of sDAI, a yield bearing stablecoin
 sDAI is an ERC-4626
 
-## 4. TableLand - For Storing the Encrypted APIs of the user in a secure and easily retrievable onchain form.
+## 4. TableLand - For Storing the Encrypted Relay APIs of the user in a secure and easily retrievable onchain form.
 
 0xkamal7/Gas Protocol Dev Address- 0xCF8D2Da12A032b3f3EaDC686AB18551D8fD6c132
 
 https://tablescan.io/gaslessprotocols_80001_8204
+
+## 5. Lit Protocol
+
+For Encrypting the relay API key using the v3 Encryption Lit SDK and mapping the protocols with their contract address , whitelisted address and other values.
 
 ## 5. Mask Network 
 
