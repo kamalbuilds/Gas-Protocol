@@ -9,6 +9,8 @@ import { Oval } from 'react-loader-spinner'
 import { ethers, providers, utils } from "ethers";
 import { MetaTransactionData, MetaTransactionOptions, OperationType } from '@safe-global/safe-core-sdk-types';
 import AccountAbstraction, { AccountAbstractionConfig } from '@safe-global/account-abstraction-kit-poc';
+import GelatoTaskStatusLabel from '@/components/GelatoTaskStatusLabel';
+import Link from 'next/link';
 
 const tokenBNtoNumber = (tokenBn: any) => {
     return tokenBn.div(ethers.BigNumber.from(10).pow(ethers.BigNumber.from(10))).toNumber() / 100000000
@@ -111,6 +113,13 @@ const Page = () => {
     const [isSafeDeployed, setIsSafeDeployed] = useState<any>();
     const [txnGasFees, setTxnGasFees] = useState<any>();
 
+    const [gelatoTaskId, setGelatoTaskId] = useState<any>();
+    const [gelatoTask, setGelatoTask] = useState<any>();
+    const [transactionHash, setTransactionHash] = useState<any>();
+
+    const [loadingGas, setLoadingGas] = useState<boolean>(false);
+    const [loadingTxn, setLoadingTxn] = useState<boolean>(false);
+
     useEffect(() => {
         console.log("Func started")
         initiateSafe();
@@ -163,6 +172,7 @@ const Page = () => {
         if (web3Provider && contractABI && contractAddress && functionSelected) {
             try {
 
+                setLoadingTxn(true);
                 const signer = web3Provider.getSigner();
                 console.log("Signer ", signer);
 
@@ -204,9 +214,14 @@ const Page = () => {
                 );
                 console.log("Response", response);
                 console.log(`https://relay.gelato.digital/tasks/status/${response} `);
+                const gelatoUrl = `https://relay.gelato.digital/tasks/status/${response}`;
+                setGelatoTask(gelatoUrl);
+                setGelatoTaskId(response);
+                setLoadingTxn(false);
 
             } catch (error) {
                 console.log("Error", error);
+                setLoadingTxn(false);
             }
         }
     }
@@ -214,7 +229,7 @@ const Page = () => {
     const getGasFees = async () => {
 
         console.log("Gas Fees initiated", web3Provider, functionSelected);
-
+        setLoadingGas(true);
         if (web3Provider && contractABI && contractAddress && functionSelected) {
             try {
                 const signer = web3Provider.getSigner();
@@ -266,9 +281,11 @@ const Page = () => {
                 console.log("Relay Fee", relayFee.toString());
                 const txnGasFees = relayFee.toString();
                 setTxnGasFees(txnGasFees);
+                setLoadingGas(false);
 
             } catch (error) {
                 console.log("Error", error);
+                setLoadingGas(false);
             }
         }
 
@@ -320,6 +337,7 @@ const Page = () => {
                             functionInput={functionInput}
                             handleFunctionInput={handleFunctionInput}
                             getGasFees={getGasFees}
+                            loadingGas={loadingGas}
                         />
                     )}
 
@@ -389,8 +407,44 @@ const Page = () => {
                             </div>
 
                             <div>
-                                <button className='border-2 p-2 my-4 w-fit rounded-lg border-transparent py-2 px-4 bg-[#1d4ed8]' onClick={handleTransaction}>Create Transaction</button>
+                                <button className='border-2 p-2 my-4 w-fit rounded-lg border-transparent py-2 px-4 bg-[#1d4ed8]' onClick={handleTransaction}>
+                                    {!loadingTxn ? (
+                                        'Create Transaction'
+                                    ) : (
+                                        <Oval
+                                            height={25}
+                                            width={25}
+                                            color="#4fa94d"
+                                            wrapperStyle={{}}
+                                            wrapperClass=""
+                                            visible={loadingTxn ? true : false}
+                                            ariaLabel='oval-loading'
+                                            secondaryColor="#4fa94d"
+                                            strokeWidth={2}
+                                            strokeWidthSecondary={2}
+                                        />
+                                    )}
+                                </button>
                             </div>
+
+                            {gelatoTask && (
+                                <div>
+                                    <Link target='_blank' className='hover:underline hover:underline-offset-8' href={gelatoTask}>Get Gelato Transaction Detail</Link>
+                                </div>
+                            )}
+
+                            {gelatoTaskId && (
+                                <GelatoTaskStatusLabel
+                                    gelatoTaskId={gelatoTaskId}
+                                    chainId={chainId}
+                                    setTransactionHash={setTransactionHash}
+                                    transactionHash={transactionHash}
+                                />
+                            )}
+
+
+
+
                         </div>
                     ) : (
                         <div>
