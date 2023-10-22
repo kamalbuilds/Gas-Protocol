@@ -29,7 +29,7 @@ const Page = () => {
 
     const router = useRouter();
     console.log("Router", router);
-    const handleSelect = (e) => {
+    const handleSelect = (e : any) => {
         setFunctionSelected(e.target.value);
         setFunctionInput(functions[e.target.value]?.inputs);
     }

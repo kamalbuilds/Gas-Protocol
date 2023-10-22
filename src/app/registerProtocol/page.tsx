@@ -1,4 +1,5 @@
 import Register from '@/components/Register/Register';
+import { Tableland } from '@/components/TableLand';
 import React from 'react';
 
 const Page = () => {

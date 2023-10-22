@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import { FormControl, FormHelperText, FormLabel, Input, List, ListIcon, ListItem } from '@chakra-ui/react';
 import React, { useState } from 'react';
@@ -14,6 +15,8 @@ import { BsFillPencilFill } from "react-icons/bs";
 import EnterDetails from './EnterDetails';
 import WhitelistedContract from './WhitelistedContract';
 import WhitelistedAddress from './WhitelistedAddress';
+import { Tableland } from '../TableLand';
+import Litencrypt from '../Litencrypt';
 
 
 
@@ -22,7 +25,7 @@ const Register = () => {
 
     const [apiKey, setApiKey] = useState<any>();
     const [activeState, setActiveState] = useState(1);
-
+    const [protocol_name, setProtocolName] = useState<any>();
     const [contractAddresses, setContractAddresses] = useState<any>([]);
     const [whitelistedAddresses, setWhitelistedAddresses] = useState<any>([]);
 
@@ -43,7 +46,10 @@ const Register = () => {
         setApiKey(apiKey);
     }
 
-
+    const handleProtocolName = (e: any) => {
+        const protocolname = e.target.value;
+        setProtocolName(protocolname);
+    }
 
 
     const updateWalletAddress = (e: any) => {
@@ -81,7 +87,9 @@ const Register = () => {
                 <div className='w-[4px] h-[auto] bg-zinc-800 mx-4'></div>
 
                 <div className='flex flex-col w-9/12 ml-8 mr-4 mt-8 mb-8 gap-8'>
-                    {activeState === 1 && <EnterDetails
+                    {activeState === 1 && (
+                        <>
+                        <EnterDetails
                         handleAPIKey={handleAPIKey}
                         contractAddresses={contractAddresses}
                         whitelistedAddresses={whitelistedAddresses}
@@ -90,7 +98,12 @@ const Register = () => {
                         updateWalletAddress={updateWalletAddress}
                         removeWalletAddress={removeWalletAddress}
                         handleSubmit={handleSubmit}
-                    />}
+                        handleProtocolName={handleProtocolName}
+                    />
+                    <Litencrypt />
+                    <Tableland protocol_name={protocol_name} encrypted_apikey={apiKey} whitelisted_addresses={whitelistedAddresses} contract_address={contractAddresses}/>
+                    </>
+                    )}
 
                     {activeState === 2 && (
                         <WhitelistedContract contractAddresses={contractAddresses} />

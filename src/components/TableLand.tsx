@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { useState } from "react";
@@ -11,12 +12,18 @@ interface TableData {
   val: string;
 }
 
+type TablelandProps = {
+  protocol_name: string,
+  encrypted_apikey: string,
+  whitelisted_addresses: string,
+  contract_address: string
+}
 // A component with form inputs to to create a table, write data to it, and read data from it
-export function Tableland() {
+export function Tableland(protocol_name, encrypted_apikey, whitelisted_addresses, contract_address) : TablelandProps {
   // Custom table prefix, used when creating the table and via form input
   const [prefix, setPrefix] = useState<string>("");
   // Tableland-generated table name in the form `prefix_chainId_tableId`
-  const [tableName, setTableName] = useState<string | undefined>();
+  const [tableName, setTableName] = useState<string | undefined>("gaslessprotocols_80001_8204");
   // Form input for the table's value
   const [writeData, setWriteData] = useState<string>("");
   const [data, setData] = useState<TableData[]>([]);
@@ -28,7 +35,7 @@ export function Tableland() {
     if (window?.ethereum) {
       // Use Web3Modal or any other method to connect to a wallet
       const provider = new ethers.providers.Web3Provider(window?.ethereum);
-
+      console.log(provider,"provider")
       try {
         await provider.send("eth_requestAccounts", []);
         const currentSigner = provider.getSigner();
@@ -38,7 +45,6 @@ export function Tableland() {
       }
     }
   }
-
   // Initialize the signer when the component mounts
   useEffect(() => {
     initSigner();
@@ -62,15 +68,32 @@ export function Tableland() {
       console.log(err.message);
     }
   }
-
+console.log(tableName,"tableName")
   // Write data to the table from a form input
+  // async function write() {
+  //   try {
+  //     const db = new Database({ signer });
+  //     if (tableName !== undefined) {
+  //       const { meta: write } = await db
+  //         .prepare(`INSERT INTO ${tableName} (val) VALUES (?);`)
+  //         .bind(writeData)
+  //         .run();
+  //       await write.txn?.wait();
+  //       console.log(`Successfully wrote data to table '${tableName}'`);
+  //     }
+  //   } catch (err: any) {
+  //     console.error(err.message);
+  //   }
+  // }
+
+
   async function write() {
     try {
       const db = new Database({ signer });
       if (tableName !== undefined) {
         const { meta: write } = await db
-          .prepare(`INSERT INTO ${tableName} (val) VALUES (?);`)
-          .bind(writeData)
+          .prepare(`INSERT INTO ${tableName} (protocol_name, encrypted_apikey, whitelisted_addresses, contract_address) VALUES (?, ?, ?, ?);`)
+          .bind(protocol_name, encrypted_apikey, whitelisted_addresses, contract_address)
           .run();
         await write.txn?.wait();
         console.log(`Successfully wrote data to table '${tableName}'`);
@@ -79,24 +102,24 @@ export function Tableland() {
       console.error(err.message);
     }
   }
+  
 
-  // Read table data upon button click
   async function read() {
     try {
       const db = new Database({ signer });
       if (tableName !== undefined) {
         const { results } = await db
-          .prepare(`SELECT * FROM ${tableName}`)
-          .all<TableData>();
+          .prepare(`SELECT protocol_name, encrypted_apikey, whitelisted_addresses, contract_address FROM ${tableName}`)
+          .all();
         console.log(`Read data from table '${tableName}':`);
         console.log(results);
-        setData(results);
+        // You can set the retrieved data in the state or use it as needed.
       }
     } catch (err: any) {
       console.error(err.message);
     }
   }
-
+  
   // Handle button click actions
   async function handleClick(e: any) {
     e.preventDefault();
@@ -133,9 +156,9 @@ export function Tableland() {
   return (
     <>
       <div className="w-full max-w-xs mx-6">
-        <h2 className="text-xl font-bold mb-2">Table setup & actions</h2>
+        <h2 className="text-xl font-bold mb-2">Store in TableLand </h2>
         <form className="shadow-md rounded px-2 pt-2 pb-2 mb-2 mr-2">
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label className="block text-md font-bold mb-2">
               Create your table
             </label>
@@ -156,19 +179,9 @@ export function Tableland() {
             >
               Create
             </button>
-          </div>{" "}
+          </div>{" "} */}
           <div className="mb-4">
             <label className="block text-md font-bold mb-2">Write data</label>
-            <input
-              onChange={handleChange}
-              name="write"
-              placeholder="Bobby Tables"
-              disabled={signer && tableName ? false : true}
-              className={
-                "shadow appearance-none border rounded py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-black" +
-                (signer && tableName ? "" : " opacity-50 cursor-not-allowed")
-              }
-            ></input>
             <button
               onClick={handleClick}
               name="write"
@@ -194,46 +207,6 @@ export function Tableland() {
             </button>
           </div>
         </form>
-      </div>
-      <div className="w-full max-w-xs mx-6">
-        <div className="w-full max-w-xs">
-          <h2 className="text-xl font-bold mb-2">Table info</h2>
-          <div className="shadow-md rounded px-2 pt-2 pb-2 mb-2 mr-2">
-            <h3 className="mb-2">
-              <span className="font-bold">Name:</span> {tableName || "N/A"}
-            </h3>
-            <h2 className="font-bold">Data:</h2>
-            <div className="flex justify-center">
-              <table className="table-auto shadow-lg">
-                <thead>
-                  <tr>
-                    <th className="border bg-gray-200 px-4 py-2 text-bold">
-                      id
-                    </th>
-                    <th className="border bg-gray-200 px-4 py-2 text-bold">
-                      val
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.length === 0 ? (
-                    <tr>
-                      <td className="border px-4 py-2">N/A</td>
-                      <td className="border px-4 py-2">N/A</td>
-                    </tr>
-                  ) : (
-                    data.map((d) => (
-                      <tr key={d.id}>
-                        <td className="border px-4 py-2">{d.id}</td>
-                        <td className="border px-4 py-2">{d.val}</td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

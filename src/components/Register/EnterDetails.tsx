@@ -13,7 +13,8 @@ const EnterDetails = ({
     removeContractAddress,
     updateWalletAddress,
     removeWalletAddress,
-    handleSubmit
+    handleSubmit,
+    handleProtocolName
 }: any) => {
 
     const handleKeyPress = async (e: any) => {
@@ -48,7 +49,12 @@ const EnterDetails = ({
             <div className='w-[auto] h-[2px] rounded-lg bg-zinc-800 '></div>
 
             <FormControl>
-                <FormLabel>API Key</FormLabel>
+                <FormLabel>Protocol Name</FormLabel>
+                <Input type='text' onChange={handleProtocolName} />
+            </FormControl>
+
+            <FormControl>
+                <FormLabel>Encrypted API Key</FormLabel>
                 <Input type='text' onChange={handleAPIKey} />
             </FormControl>
             <FormControl>
