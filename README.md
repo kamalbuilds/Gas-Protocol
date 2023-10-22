@@ -21,44 +21,21 @@ If you are a developer with a new protocol, game, or NFT project, this can be wh
 8. Protocols can also see their users onchain Data and all their relations in the online arena using the Mask's RelationService. This helps the protocols in verifying that their users are actual users and not bots.
 
 
-## Technologies used
+## Protocols used and the Files where the Code is used.
 
-## 1.  Safe and Gelato
+| Name                | Description                                                             | Code Location                                                   |
+| ------------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Safe and Gelato     | By Account Abstraction we generate a Safe for our Users. EIP 712 - for signing the meta txns. EIP 2773 - Use Gelato and 1Balance for relaying transactions. | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/app/login/page.tsx#L29) |
+|                     |                                                                         | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/SafeAccount.tsx) |
+|                     |                                                                         | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/SafeAccountInfo.tsx) |
+| APE Protocol        | Our Live Integration with APE Protocol makes the staking of APE coin for New users gasless ⛽   | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/app/protocol/page.tsx#L103) |
+|                     |                                                                       | [Link](https://goerli.etherscan.io/tx/0x6f68ed6f68ec721dd15a09be71f5046c1bc2890b206781ad45b8b0583dbafd7d) |
+| MakerDAO Protocol   | sDAI is an ERC-4626, yield-bearing stablecoin, and we make the deposit and withdrawal functions gasless. | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/app/protocol/page.tsx#L117) |
+| TableLand           | For Storing the Encrypted Relay APIs of the user in a secure and easily retrievable on-chain form. | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/TableLand.tsx) |
+|                     |                                                                         | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/app/transactions/%5Baddress%5D/page.tsx#L38) |
+| Lit Protocol        | For Encrypting the relay API key using the v3 Encryption Lit SDK and mapping the protocols with their contract address, whitelisted address, and other values. Programatic Signing - | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/api/conditionalsign.ts) |
+|                     |                                                                         | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/Litencrypt.tsx) |
+| Mask Network        | Use of RelationService. Develop this groundbreaking solution using RelationService API, exploring use cases from cross-platform profile search to DAO tooling, and beyond. | N/A |
+| Sismo Connect       | Users can generate zk proofs and submit them to get access to gasless transactions as per the different conditions set by the protocols. For example, the condition of having an NFT as a sign of being a member of that DAO. | [Code](https://github.com/kamalbuilds/Gas-Protocol/blob/master/src/components/Sismo.tsx) |
 
-By Account Abstraction we generate a Safe for our Users.
-EIP 712 - for signing the meta txns
-EIP 2773 - for relaying transactions
-
-## 2. APE Protocol
-
-https://goerli.etherscan.io/tx/0x6f68ed6f68ec721dd15a09be71f5046c1bc2890b206781ad45b8b0583dbafd7d
-
-## 3. MakerDAO Protocol
-
-We make the deposit and widrawl functions gasless.
-
-application that makes use of sDAI, a yield bearing stablecoin
-sDAI is an ERC-4626
-
-## 4. TableLand - For Storing the Encrypted Relay APIs of the user in a secure and easily retrievable onchain form.
-
-0xkamal7/Gas Protocol Dev Address- 0xCF8D2Da12A032b3f3EaDC686AB18551D8fD6c132
-
-https://tablescan.io/gaslessprotocols_80001_8204
-
-## 5. Lit Protocol
-
-For Encrypting the relay API key using the v3 Encryption Lit SDK and mapping the protocols with their contract address , whitelisted address and other values.
-
-## 5. Mask Network 
-
-Use of RelationService
-
-Develop this groundbreaking solution using RelationService API, exploring use cases from cross-platform profile search to DAO tooling, and beyond.
-
-## 6. Sismo Connect 
-
-Users can generate zkproofs and submit it to get access to the gasless transactions as per the different conditions set by the protocols.
-
-For eg - The condition of having an NFT as a sign of being a member of that DAO.
 
