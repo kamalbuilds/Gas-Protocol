@@ -5,8 +5,7 @@ import Link from 'next/link';
 import React, { useContext } from 'react';
 import { MdOpenInNew } from "react-icons/md";
 import { AiOutlineCopy } from "react-icons/ai";
-
-
+import { ImNewTab } from "react-icons/im";
 
 
 type AddressLabelProps = {
@@ -46,6 +45,10 @@ const AddressLabel = ({
                 <div onClick={() => navigator?.clipboard?.writeText?.(address)}>
                     <AiOutlineCopy />
                 </div>)}
+
+                {/* <div className='flex flex-row gap-1 items-center'>
+            <span>{useFullAddress ? address : addressLabel}</span> */}
+                
         </div>
     );
 };

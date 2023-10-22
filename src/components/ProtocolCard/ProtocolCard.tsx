@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, ListItem, UnorderedList } from '@chakra-ui/react';
 import AddressLabel from '../AddressLabel';
+import Link from 'next/link';
 
 const ProtocolCard = ({
     title,
