@@ -4,6 +4,7 @@ import Image from 'next/image'
 import APEProtocol from '../../assets/APECoinProtocol.png';
 import Link from 'next/link';
 import Register from '@/components/Register/Register';
+import MakerDao from '../../assets/MakerDao.png';
 
 export default function User() {
 
@@ -59,7 +60,7 @@ export default function User() {
         />
         <ProtocolCard
           title="Maker DAO Protocol"
-          src={APEProtocol}
+          src={MakerDao}
           tags={[{
             name: 'Borrowing',
             color: 'red '

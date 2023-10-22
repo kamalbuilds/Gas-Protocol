@@ -17,6 +17,7 @@ If you are a developer with a new protocol, game, or NFT project, this can be wh
 
 1. Safe and Gelato
 
+By Account Abstraction we generate a Safe for our Users.
 EIP 712 - for signing the meta txns
 EIP 2773 - for relaying transactions
 
@@ -26,7 +27,26 @@ https://goerli.etherscan.io/tx/0x6f68ed6f68ec721dd15a09be71f5046c1bc2890b206781a
 
 3. MakerDAO Protocol
 
-3. TableLand
+We make the deposit and widrawl functions gasless.
+
+application that makes use of sDAI, a yield bearing stablecoin
+sDAI is an ERC-4626
+
+4. TableLand - For Storing the Encrypted APIs of the user in a secure and easily retrievable onchain form.
 
 0xkamal7/Gas Protocol Dev Address- 0xCF8D2Da12A032b3f3EaDC686AB18551D8fD6c132
+
 https://tablescan.io/gaslessprotocols_80001_8204
+
+5. Mask Network 
+
+Use of RelationServiceSDK
+
+Develop this groundbreaking solution using RelationService API, exploring use cases from cross-platform profile search to DAO tooling, and beyond.
+
+6. Sismo Connect 
+
+Users can generate zkproofs and submit it to get access to the gasless transactions as per the different conditions set by the protocols.
+
+For eg - The condition of having an NFT as a sign of being a member of that DAO.
+

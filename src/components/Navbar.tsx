@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { useContext } from 'react';
 
 import { RxAvatar } from "react-icons/rx";
+import Sismo from './Sismo';
 
 
 const Navbar = () => {
@@ -16,7 +17,7 @@ const Navbar = () => {
                 <div>Gas Protocol</div>
             </Link>
 
-
+            <Sismo />
             {!isAuthenticated ? (
                 <Link href='/login'>
                     <button className='border-2 border-transparent rounded-lg py-2 px-4 bg-[#1d4ed8]'>Login</button>

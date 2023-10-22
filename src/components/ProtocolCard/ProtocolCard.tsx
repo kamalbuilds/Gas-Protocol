@@ -1,19 +1,18 @@
 "use client"
 import Image from 'next/image';
 import React from 'react';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, ListItem, UnorderedList } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, ListItem, UnorderedList } from '@chakra-ui/react';
 import AddressLabel from '../AddressLabel';
-import Link from 'next/link';
 
 const ProtocolCard = ({
     title,
     src,
     tags,
     whitelistedAddresses,
-    whitelistedContracts
+    whitelistedContracts,
+    proofrequest
 }: any) => {
 
-    console.log("Image SRC", src);
 
     return (
         <div>
@@ -31,7 +30,7 @@ const ProtocolCard = ({
                 <div className='flex flex-col flex-1 content-between '>
                     <div className='text-[28px]'>{title}</div>
                     <div className='w-[100%] h-[2px] bg-gray-500 mt-2'></div>
-
+{ proofrequest && <Button className='text-white bg-grey-400 hover:bg-purple-900 w-100'>Submit Proof</Button> }
                     <div className='mb-8 mt-6'>
                         <div className='flex gap-4 mb-2'>
                             {tags?.map((tag) => (

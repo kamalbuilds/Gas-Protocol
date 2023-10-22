@@ -3,12 +3,12 @@ import ProtocolCard from '@/components/ProtocolCard/ProtocolCard'
 import Image from 'next/image'
 import APEProtocol from '../../assets/APECoinProtocol.png';
 import Link from 'next/link';
-
+import MakerProtocol from '../../assets/MakerDao.png';
+import Sismo from '@/components/Sismo';
 
 export default function User() {
   return (
     <main className="flex  flex-col items-center justify-between p-12">
-
       <p
         className="text-2xl text-center text-gray-300 mb-12"
         data-aos="zoom-y-out"
@@ -17,7 +17,6 @@ export default function User() {
 
         You can create your own custom transaction by passing smart contract address and creating your transaction batch.<br />
         Or <br /> You can explore the protocols associated with us.
-
 
       </p>
 
@@ -50,11 +49,26 @@ export default function User() {
             }, {
               name: 'User-Onboarding',
               color: 'red'
+            },
+            {
+              name: 'Minting',
+              color: 'green'
             }]}
+            whitelistedAddresses={[
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33"
+            ]}
+            whitelistedContracts={[
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33"
+            ]}
+            proofrequest={true}
           />
           <ProtocolCard
             title="Maker DAO Protocol"
-            src={APEProtocol}
+            src={MakerProtocol}
             tags={[{
               name: 'Borrowing',
               color: 'red '
@@ -62,10 +76,21 @@ export default function User() {
               name: 'staking',
               color: 'blue'
             }, {
-              name: 'Lending',
+              name: 'Deposit',
               color: 'green'
             }
             ]}
+            whitelistedAddresses={[
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33"
+            ]}
+            whitelistedContracts={[
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33",
+              "0x2b9bE9259a4F5Ba6344c1b1c07911539642a2D33"
+            ]}
+            proofrequest={true}
           />
 
         </div>
