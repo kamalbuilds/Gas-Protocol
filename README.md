@@ -11,7 +11,7 @@ If you are a developer with a new protocol, game, or NFT project, this can be wh
 2. Protocols register on our dapp by filling up a form and generating an api key for their specific protocols with the help of 1balance and fill up a form on our Dapp.
 3.Thereby encrypting their Relay api key using Lit protocol and storing it securely with the help of TableLand.
 4. They can even setup different onchain conditions like having an NFT or a token or github account etc to filter their intended users.
-5.The users inturn can prove all the required conditions sufficient by their different protocols using Sismo and get whitelisted to access the gasless services.
+5. The users inturn can prove all the required conditions sufficient by their different protocols using Sismo and get whitelisted to access the gasless services.
 6. This is how Protocols enable Gas less transactions for their users.
 7. We have live integrations with SparkDAO showing how they make SDAI interactions smooth and gasless for their users and ApeCoin DAO where they have their minting and ape staking functions gasless.
 8. Protocols can also see their users onchain Data and all their relations in the online arena using the Mask's RelationService. This helps the protocols in verifying that their users are actual users and not bots.
