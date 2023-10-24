@@ -1,5 +1,5 @@
 <div style="text-align:center;">
-  <img src="https://github.com/kamalbuilds/Gas-Protocol/assets/95926324/58f2125f-03bc-45d6-b06c-ab85ecd80394" alt="logo1">
+  <img src="https://github.com/kamalbuilds/Gas-Protocol/assets/95926324/58f2125f-03bc-45d6-b06c-ab85ecd80394" alt="logo">
 </div>
 
 Problem Statement:- 
